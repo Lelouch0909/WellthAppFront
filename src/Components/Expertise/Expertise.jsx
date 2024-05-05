@@ -1,17 +1,22 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
-function Expertise({ setObjectif, setActive, active }) {
-   
+function Expertise({ setObjectif, setActive, current }) {
+    const navigate = useNavigate()
+
+    if (current !==1) {
+        navigate("/")
+      }
     return (
 
         <div className="expertiveBody">
-            <div className="progresseBar  bg-[#FFEAEE] flex h-3 w-full " style={ { borderRadius: "20px" } }>
+            <div className="progresseBar z-10  fixed top-0 left-0 bg-gray-300 flex h-3 w-full " style={ { borderRadius: "20px" } }>
                 <div className="toProgress  bg-[#4CAF50] w-1/4"
                     style={ { borderRadius: "20px" } }></div>
                 <div className="onProgress bg-inherit w-3/4"
                     style={ { borderTopRightRadius: "50px", borderBottomRightRadius: "50px" } }></div>
             </div>
-            <div className=" title mt-16 text-[#FF5252] text-5xl ">
+            <div className=" title  text-[#4CAF50] text-5xl ">
                 Quel est votre objectif?
             </div>
             <div className="message mt-10 mb-16 text-sm">Avant tout, Dites nous quel est votre objectif.</div>
