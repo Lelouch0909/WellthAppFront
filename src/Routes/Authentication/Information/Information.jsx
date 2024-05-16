@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import Expertise from '../../../Components/Expertise/Expertise'
 import Goals from '../../../Components/Goals/Goals'
 import More from '../../../Components/More/More'
 import Loader1 from '../../../Components/Loader/Loader1'
+import { document } from 'postcss'
+
+
 function Information() {
 
-  const navigation = { 1: "/", 2: "/regime/create/goals", 3: "/regime/create/more" }
+  const navigation = { 1: "/regime/create/", 2: "/regime/create/goals", 3: "/regime/create/more" }
   const navigate = useNavigate()
   let [current, setCurrent] = useState(1)
   let [regimeObj, setObjectif] = useState("")
@@ -18,40 +21,46 @@ function Information() {
   let [active, setActive] = useState("")
   let [duree, setDuree] = useState(14)
   let [age, setAge] = useState(18)
+  let btr = useRef()
+  let btl = useRef()
 
   let param = {
     objectif: regimeObj,
     condPhysique: cond
   }
-  console.log(iden);
-  console.log(param);
-  console.log(iden);
+  function verifie() {
+    if (iden !== "" && poids !== "" && taille !== "" && duree !== null && age !== null) {
+      btr.current.style.opacity = 1
+      return true
+    }
+    else return false
+  }
   return (
-    <div className='w-[100vw] relative h-[100vh] flex-col gap-1  pt-14 px-3  font-bold'>
+    <div className='w-[100vw] relative h-[100vh] flex-col gap-1  pt-14 px-3  font-bold' style={ { animation: "appear 0.25s 0.2s both" } }>
       <div className="h-5/6 overflow-scroll hideScrollBar">
         <Routes>
-          <Route path='/' element={ <Expertise setObjectif={ setObjectif } setActive={ setActive } active={ active } current={ current }></Expertise> }></Route>
-          <Route path='/goals' element={ <Goals setpCond={ setpCond } current={ current }></Goals> }>
+          <Route path='/' element={ <Expertise setObjectif={ setObjectif } setActive={ setActive } active={ active } current={ current } btr={ btr } btl={ btl }></Expertise> }></Route>
+          <Route path='/goals' element={ <Goals setpCond={ setpCond } current={ current } btr={ btr } btl={ btl }></Goals> }>
           </Route>
-          <Route path='/more' element={ <More setIden={ setIden } poids={ poids } current={ current } taille={ taille } risques={ risques } age={ age } duree={ duree } setPoids={ setPoids } setTaille={ setTaille } setRisques={ setRisques } setAge={ setAge } setDuree={ setDuree } ></More>
+          <Route path='/more' element={ <More setIden={ setIden } poids={ poids } current={ current } taille={ taille } risques={ risques } age={ age } duree={ duree } setPoids={ setPoids } setTaille={ setTaille } setRisques={ setRisques } setAge={ setAge } setDuree={ setDuree } verifie={ verifie } btr={ btr } btl={ btl }></More>
           }></Route>
-          <Route path='/loader' element={ <Loader1></Loader1> }></Route>
+          <Route path='/loader' element={ <Loader1 btr={ btr } btl={ btl }></Loader1> }></Route>
         </Routes>
       </div>
 
       <div className=" fixed bottom-0 left-0 z-10 w-full">
         <div className="flex justify-center m-1 p-0 w-full">
 
-          <button id='btl'  className='p-4  hidden' style={ { color: "#4CAF50" } } onClick={ () => {
-            document.getElementById("btr").style.opacity = 0.3
+          <button id='btl' ref={ btl } className='p-4  hidden' style={ { color: "#4CAF50" } } onClick={ () => {
+            btr.current.style.opacity = 0.3
 
             switch (current) {
               case 2:
                 setCurrent(1)
                 setObjectif("")
-                document.getElementById("btr").innerText = "Suivant"
+                btr.current.innerText = "Suivant"
 
-                document.getElementById("btl").className = "p-4 hidden"
+                btl.current.className = "p-4 hidden"
 
                 navigate(navigation[1])
 
@@ -60,7 +69,7 @@ function Information() {
               case 3:
                 setCurrent(2)
                 setpCond("")
-                document.getElementById("btr").innerText = "Suivant"
+                btr.current.innerText = "Suivant"
                 navigate(navigation[2])
 
                 break;
@@ -69,14 +78,14 @@ function Information() {
                 setpCond("")
                 setObjectif("")
 
-                document.getElementById("btr").innerText = "Suivant"
+                btr.current.innerText = "Suivant"
 
-                navigate("/")
+                navigate("/regime/create/")
 
                 break;
               default:
                 setCurrent(1)
-                navigate("/")
+                navigate("/regime/create/")
                 break;
             }
 
@@ -85,40 +94,47 @@ function Information() {
 
 
 
-          <button id='btr' className='py-[20px] px-[5rem] ' style={ { borderRadius: "25px", color: "#333333", background: "#4CAF50", opacity: 0.3 } } onClick={ () => {
+          <button id='btr' className='py-[20px] px-[5rem] ' ref={ btr } style={ { borderRadius: "25px", color: "#333333", background: "#4CAF50", opacity: 0.3 } } onClick={ () => {
             switch (current) {
               case 1:
                 if (regimeObj !== "") {
                   console.log("----");
-                  document.getElementById("btr").style.opacity = 0.3
+                  btr.current.style.opacity = 0.3
                   setCurrent(2)
-                  document.getElementById("btl").className = "p-4"
+                  btl.current.className = "p-4"
                   navigate(navigation[2])
 
                 }
                 break;
+
+
+
               case 2:
                 if (cond !== "") {
                   console.log("----");
-                  document.getElementById("btr").style.opacity = 0.3
+                  btr.current.style.opacity = 0.3
                   setCurrent(3)
-                  document.getElementById("btr").innerText = "Terminer"
+                  btr.current.innerText = "Terminer"
 
                   navigate(navigation[3])
 
                 }
                 break;
               case 3:
-                navigate("/regime/create/loader")
-                document.getElementById("btl").className = "p-4 hidden"
-                document.getElementById("btr").innerText = "Please Wait..."
+                if (verifie) {
+                  navigate("/regime/create/loader")
+                  btl.current.className = "p-4 hidden"
+                  btr.current.innerText = "Please Wait..."
 
+                }
+                
+                //changer la classe d un element html
 
                 break;
 
               default:
                 setCurrent(1)
-                navigate("/")
+                navigate("/regime/create/")
                 break;
             }
           }

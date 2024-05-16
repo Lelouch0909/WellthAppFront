@@ -1,10 +1,11 @@
+import { document } from "postcss"
 import "./Loader1.css"
 import React from "react"
 
-function Loader1() {
+function Loader1({ btr, btl}) {
 
-    document.getElementById("btl").className = "p-4 hidden"
-    document.getElementById("btr").innerText = "Please Wait..."
+    btl.current.class = "p-4 hidden"
+    btr.current.innerText = "Please Wait..."
 
 
     return (

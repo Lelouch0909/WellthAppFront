@@ -9,11 +9,12 @@ function Authentication() {
   let element;
 
   if (true) {
-    element = <SignIn></SignIn>
+    element = <SignUp></SignUp>
   }
   else {
     element = <HomePage></HomePage>
   }
+  
 
   return (
     <Routes>

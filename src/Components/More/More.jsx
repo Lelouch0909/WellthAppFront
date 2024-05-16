@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function More({ setIden, setPoids, setTaille, setRisques, poids, taille, risques, age, setAge, duree, setDuree ,current}) {
+function More({ setIden, setPoids, setTaille, setRisques, poids, taille, risques, age, setAge, duree, setDuree, current, verifie, btr, btl }) {
   let [choice, setChoice] = useState("")
   let [text, setText] = useState("")
   const navigate = useNavigate()
 
-  if (current !==3) {
-    navigate("/")
+  if (current !== 3) {
+    navigate("/regime/create/")
   }
   return (
     <div className='moreBody'>
@@ -28,6 +28,7 @@ function More({ setIden, setPoids, setTaille, setRisques, poids, taille, risques
             setIden("homme");
             document.getElementById("om1").style.border = "5px solid #4CAF50"
             document.getElementById("om2").style.border = "none"
+            verifie()
 
           } }>Homme</button>
         <button id='om2' className="choice  p-5 bg-[#333333]
@@ -35,6 +36,8 @@ function More({ setIden, setPoids, setTaille, setRisques, poids, taille, risques
             setIden("femme");
             document.getElementById("om2").style.border = "5px solid #4CAF50"
             document.getElementById("om1").style.border = "none"
+            verifie()
+
           } }>Femme</button>
       </div>
 
@@ -44,6 +47,8 @@ function More({ setIden, setPoids, setTaille, setRisques, poids, taille, risques
           <input required type="range" className='w-3/5 ' min={ 15 } max={ 80 } value={ age } onChange={
             (e) => {
               setAge(e.target.value)
+              verifie()
+
             }
           } />
           <div className="">{ age } Ans</div>
@@ -56,6 +61,8 @@ function More({ setIden, setPoids, setTaille, setRisques, poids, taille, risques
           <input required type="range" className='w-3/5 ' min={ 14 } max={ 90 } value={ duree } onChange={
             (e) => {
               setDuree(e.target.value)
+
+              verifie()
             }
           } />
           <div className="">{ duree } Jours</div>
@@ -68,6 +75,8 @@ function More({ setIden, setPoids, setTaille, setRisques, poids, taille, risques
           <div className="flex flex-col gap-2">
             <input required type="number" className='w-16  text-2xl text-center' value={ poids } onChange={ (e) => {
               setPoids(e.target.value)
+              verifie()
+
               if (e.target.value < 20 || e.target.value > 200) {
                 document.getElementById("rm1").style.background = "red"
 
@@ -76,6 +85,7 @@ function More({ setIden, setPoids, setTaille, setRisques, poids, taille, risques
                 document.getElementById("rm1").style.background = "#4CAF50"
 
               }
+              verifie()
 
             } } />
             <div id='rm1' className="bg-[#333333] w-16 h-[1px]"></div>
@@ -90,6 +100,8 @@ function More({ setIden, setPoids, setTaille, setRisques, poids, taille, risques
           <div className="flex flex-col gap-2">
             <input required type="number" max={ 3 } min={ 0.5 } className='w-16 text-2xl text-center' value={ taille } onChange={ (e) => {
               setTaille(e.target.value)
+              verifie()
+
               if (e.target.value < 0.5 || e.target.value > 2.5) {
                 document.getElementById("rm2").style.background = "red"
 
@@ -98,6 +110,8 @@ function More({ setIden, setPoids, setTaille, setRisques, poids, taille, risques
                 document.getElementById("rm2").style.background = "#4CAF50"
 
               }
+              verifie()
+
             } } />
             <div id='rm2' className="bg-[#333333] w-16 h-[1px]"></div>
           </div>
@@ -107,7 +121,9 @@ function More({ setIden, setPoids, setTaille, setRisques, poids, taille, risques
 
       <div className=" text-[#2196F3] text-2xl  m-8">Si vous avez des Antecedents Medicaux ou des Allergies; Merci de les preciser</div>
       <div className="w-full h-[56px] text-black text-center text-xl  flex  " >
-        <input id='ch3' type="text" className='text-center w-4/5 border-[1px]  active:border-none' value={ text } onChange={ (e) => { setText(e.target.value) } } style={ { borderRadius: "32px", color: "#333333", borderColor: "#333333", borderTopRightRadius: "0", borderBottomRightRadius: "0px" } } />
+        <input id='ch3' type="text" className='text-center w-4/5 border-[1px]  active:border-none' value={ text } onChange={ (e) => { setText(e.target.value)    
+                   verifie()
+} } style={ { borderRadius: "32px", color: "#333333", borderColor: "#333333", borderTopRightRadius: "0", borderBottomRightRadius: "0px" } } />
         <button className='  border-[1px] w-1/5 '
           style={ { borderTopRightRadius: "32px", color: "#333333", borderColor: "#333333", borderBottomRightRadius: "32px" } } onClick={ () => {
             let put = document.getElementById("ch3")

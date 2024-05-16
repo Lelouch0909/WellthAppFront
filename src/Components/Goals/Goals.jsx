@@ -1,13 +1,13 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-function Goals({ setpCond,current }) {
+function Goals({ setpCond, current , btr , btl}) {
   const navigate = useNavigate()
 
-  if (current !==2) {
-    navigate("/")
+  if (current !== 2) {
+    navigate("/regime/create/")
   }
-  
+
   return (
     <div className=' goalsBody'>
       <div className="fixed top-0 left-0 progresseBar z-10   bg-gray-300  flex h-3 w-full " style={ { borderRadius: "20px" } }>
@@ -25,21 +25,21 @@ function Goals({ setpCond,current }) {
       <div className="choices flex flex-col justify-center align-middle gap-10 w-full">
         <button id='op1' className="choice  p-5 bg-[#333333]
         text-[white]" style={ { borderRadius: "20px" } } onClick={ () => {
-            setpCond("peu"); document.getElementById("btr").style.opacity = 1
+            setpCond("peu"); btr.current.style.opacity = 1
             document.getElementById("op1").style.border = "5px solid #4CAF50"
             document.getElementById("op2").style.border = "none"
             document.getElementById("op3").style.border = "none"
           } }>Pas assez</button>
         <button id='op2' className="choice  p-5 bg-[#333333]
         text-[white]" style={ { borderRadius: "20px" } } onClick={ () => {
-            setpCond("assez"); document.getElementById("btr").style.opacity = 1
+            setpCond("assez"); btr.current.style.opacity = 1
             document.getElementById("op1").style.border = "none"
             document.getElementById("op2").style.border = "5px solid #4CAF50"
             document.getElementById("op3").style.border = "none"
           } }>Suffisamment</button>
         <button id='op3' className="choice  p-5 bg-[#333333]
         text-[white]" style={ { borderRadius: "20px" } } onClick={ () => {
-            setpCond("beaucoup"); document.getElementById("btr").style.opacity = 1
+            setpCond("beaucoup"); btr.current.style.opacity = 1
             document.getElementById("op1").style.border = "none"
             document.getElementById("op2").style.border = "none"
             document.getElementById("op3").style.border = "5px solid #4CAF50"
