@@ -15,9 +15,9 @@ function HomePage() {
   var navigate = useNavigate()
   let root;
   if (false) {
-    root = <div className="h-full w-full">
+    root = <div className="h-full w-full ">
 
-      <div className="header  rounded-b-xl  flex absolute w-full  p-3 items-center justify-between  shadow-[0px_1px_10px_#333333]  rounded-xl my-1 " >
+      <div className="header  rounded-b-xl  flex absolute w-full  p-3 items-center justify-between  shadow-[0px_1px_10px_#333333]   " >
         <div className="avatar w-10 h-10 ml-2 object-cover">
           <img className='w-full h-full' srcSet="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="" />
         </div>
@@ -42,7 +42,7 @@ function HomePage() {
     root = <Home></Home>
   }
   return (
-    <div className=' '>
+    <div className=' text-xl'>
       <Transition></Transition>
       <img srcSet={ bg } className=' w-full h-full object-cover absolute ' alt="" />
       <div className=" h-[100vh] overflow-scroll relative">
