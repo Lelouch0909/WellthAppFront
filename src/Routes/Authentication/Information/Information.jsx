@@ -1,13 +1,18 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import Expertise from '../../../Components/Expertise/Expertise'
 import Goals from '../../../Components/Goals/Goals'
 import More from '../../../Components/More/More'
 import Loader1 from '../../../Components/Loader/Loader1'
-import { document } from 'postcss'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateUserProfile } from '../../../Store/Auth/Action'
+import { createRegime } from '../../../Store/Regime/Action'
+import Transition, { launchAnimate } from '../../../Components/transition-2/Transition'
 
 
 function Information() {
+
+  console.log(11111111111111111111);
 
   const navigation = { 1: "/regime/create/", 2: "/regime/create/goals", 3: "/regime/create/more" }
   const navigate = useNavigate()
@@ -21,13 +26,42 @@ function Information() {
   let [active, setActive] = useState("")
   let [duree, setDuree] = useState(14)
   let [age, setAge] = useState(18)
+  let [habitude, setHabitude] = useState("")
+  let [aEviter, setaEviter] = useState("")
   let btr = useRef()
   let btl = useRef()
 
-  let param = {
-    objectif: regimeObj,
-    condPhysique: cond
+  let paramUser = {
+    sexe: iden,
+    poids: poids,
+    taille: taille,
+    antecedentsMedicaux: risques,
+    age: age
   }
+  let paramRegime = {
+    dureeEnJours: duree,
+    regimeObjectif: regimeObj,
+    objectif: poids,
+    alimentationHabituelle: habitude,
+    condPhysique: cond,
+    alimentsAeviter: aEviter
+
+  }
+  const dispatch = useDispatch();
+  const { auth } = useSelector(store => store)
+  const { regime } = useSelector(store => store)
+  useEffect(() => {
+
+    if (regime.regimeCurrent) {
+      launchAnimate()
+      navigate('/')
+    }
+
+
+  }, [regime.regimeCurrent])
+
+  var user = auth.user
+
   function verifie() {
     if (iden !== "" && poids !== "" && taille !== "" && duree !== null && age !== null) {
       btr.current.style.opacity = 1
@@ -37,12 +71,13 @@ function Information() {
   }
   return (
     <div className='w-[100vw] relative h-[100vh] flex-col gap-1  pt-14 px-3  font-bold' style={ { animation: "appear 0.25s 0.2s both" } }>
+      <Transition></Transition>
       <div className="h-5/6 overflow-scroll hideScrollBar">
         <Routes>
           <Route path='/' element={ <Expertise setObjectif={ setObjectif } setActive={ setActive } active={ active } current={ current } btr={ btr } btl={ btl }></Expertise> }></Route>
           <Route path='/goals' element={ <Goals setpCond={ setpCond } current={ current } btr={ btr } btl={ btl }></Goals> }>
           </Route>
-          <Route path='/more' element={ <More setIden={ setIden } poids={ poids } current={ current } taille={ taille } risques={ risques } age={ age } duree={ duree } setPoids={ setPoids } setTaille={ setTaille } setRisques={ setRisques } setAge={ setAge } setDuree={ setDuree } verifie={ verifie } btr={ btr } btl={ btl }></More>
+          <Route path='/more' element={ <More setIden={ setIden } poids={ poids } current={ current } taille={ taille } risques={ risques } age={ age } duree={ duree } setPoids={ setPoids } setTaille={ setTaille } setRisques={ setRisques } setAge={ setAge } setDuree={ setDuree } verifie={ verifie } btr={ btr } btl={ btl } setHabitude={ setHabitude } aEviter={ aEviter } setaEviter={ setaEviter }></More>
           }></Route>
           <Route path='/loader' element={ <Loader1 btr={ btr } btl={ btl }></Loader1> }></Route>
         </Routes>
@@ -120,14 +155,19 @@ function Information() {
 
                 }
                 break;
+              /**********************************************************
+               * **********************************************************
+               * *********************************************************
+               */
               case 3:
-                if (verifie) {
+                if (verifie()) {
                   navigate("/regime/create/loader")
                   btl.current.className = "p-4 hidden"
                   btr.current.innerText = "Please Wait..."
-
+                  dispatch(updateUserProfile({ ...paramUser, email: user.email }))
+                  dispatch(createRegime(paramRegime))
                 }
-                
+
                 //changer la classe d un element html
 
                 break;

@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function More({ setIden, setPoids, setTaille, setRisques, poids, taille, risques, age, setAge, duree, setDuree, current, verifie, btr, btl }) {
+function More({ setIden, setPoids, setTaille, setRisques, poids, taille, risques, age, setAge, duree, setDuree, current, verifie, btr, btl, setHabitude ,aEviter, setaEviter}) {
   let [choice, setChoice] = useState("")
+  let [choice2, setChoice2] = useState("")
+  let [choice3, setChoice3] = useState("")
+
   let [text, setText] = useState("")
+  let [text2, setText2] = useState("")
+  let [text3, setText3] = useState("")
   const navigate = useNavigate()
 
   if (current !== 3) {
@@ -119,11 +124,12 @@ function More({ setIden, setPoids, setTaille, setRisques, poids, taille, risques
         </div>
       </div>
 
-      <div className=" text-[#2196F3] text-2xl  m-8">Si vous avez des Antecedents Medicaux ou des Allergies; Merci de les preciser</div>
+      <div className=" text-[#2196F3] text-xl  m-8">Si vous avez des Antecedents Medicaux ou des Allergies; Merci de les preciser</div>
       <div className="w-full h-[56px] text-black text-center text-xl  flex  " >
-        <input id='ch3' type="text" className='text-center w-4/5 border-[1px]  active:border-none' value={ text } onChange={ (e) => { setText(e.target.value)    
-                   verifie()
-} } style={ { borderRadius: "32px", color: "#333333", borderColor: "#333333", borderTopRightRadius: "0", borderBottomRightRadius: "0px" } } />
+        <input id='ch3' type="text" className='text-center w-4/5 border-[1px]  active:border-none' value={ text } onChange={ (e) => {
+          setText(e.target.value)
+          verifie()
+        } } style={ { borderRadius: "32px", color: "#333333", borderColor: "#333333", borderTopRightRadius: "0", borderBottomRightRadius: "0px" } } />
         <button className='  border-[1px] w-1/5 '
           style={ { borderTopRightRadius: "32px", color: "#333333", borderColor: "#333333", borderBottomRightRadius: "32px" } } onClick={ () => {
             let put = document.getElementById("ch3")
@@ -134,6 +140,43 @@ function More({ setIden, setPoids, setTaille, setRisques, poids, taille, risques
       </div>
 
       <div id='choice' className="w-full  text-xl userChoice my-8 my-3 pl-4" value={ choice } >{ choice }</div>
+
+
+      <div className=" text-[#2196F3] text-xl  m-8">Si vous aviez des aliments habituellement consomme; Merci de les preciser</div>
+      <div className="w-full h-[56px] text-black text-center text-xl  flex  " >
+        <input id='ch4' type="text" className='text-center w-4/5 border-[1px]  active:border-none' value={ text2 } onChange={ (e) => {
+          setText2(e.target.value)
+          verifie()
+        } } style={ { borderRadius: "32px", color: "#333333", borderColor: "#333333", borderTopRightRadius: "0", borderBottomRightRadius: "0px" } } />
+        <button className='  border-[1px] w-1/5 '
+          style={ { borderTopRightRadius: "32px", color: "#333333", borderColor: "#333333", borderBottomRightRadius: "32px" } } onClick={ () => {
+            let put = document.getElementById("ch4")
+            choice2 === "" ? setChoice2(put.value) : setChoice2(choice2 + "; " + put.value)
+            setHabitude(choice2)
+            setText2("")
+          } }>Add</button>
+      </div>
+
+      <div id='choice2' className="w-full  text-xl userChoice my-8 my-3 pl-4" value={ choice2 } >{ choice2 }</div>
+
+
+
+      <div className=" text-[#2196F3] text-xl  m-8">Si vous aviez des aliments aue vous souhaitez eviter; Merci de les preciser</div>
+      <div className="w-full h-[56px] text-black text-center text-xl  flex  " >
+        <input id='ch5' type="text" className='text-center w-4/5 border-[1px]  active:border-none' value={ text3 } onChange={ (e) => {
+          setText3(e.target.value)
+          verifie()
+        } } style={ { borderRadius: "32px", color: "#333333", borderColor: "#333333", borderTopRightRadius: "0", borderBottomRightRadius: "0px" } } />
+        <button className='  border-[1px] w-1/5 '
+          style={ { borderTopRightRadius: "32px", color: "#333333", borderColor: "#333333", borderBottomRightRadius: "32px" } } onClick={ () => {
+            let put = document.getElementById("ch5")
+            choice3 === "" ? setChoice3(put.value) : setChoice3(choice3 + "; " + put.value)
+            setaEviter(choice3)
+            setText3("")
+          } }>Add</button>
+      </div>
+
+      <div id='choice3' className="w-full  text-xl userChoice my-8 my-3 pl-4" value={ choice3 } >{ choice3 }</div>
     </div >
   )
 }

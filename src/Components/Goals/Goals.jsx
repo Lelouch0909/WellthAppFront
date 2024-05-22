@@ -25,21 +25,21 @@ function Goals({ setpCond, current , btr , btl}) {
       <div className="choices flex flex-col justify-center align-middle gap-10 w-full">
         <button id='op1' className="choice  p-5 bg-[#333333]
         text-[white]" style={ { borderRadius: "20px" } } onClick={ () => {
-            setpCond("peu"); btr.current.style.opacity = 1
+            setpCond("peu frequent"); btr.current.style.opacity = 1
             document.getElementById("op1").style.border = "5px solid #4CAF50"
             document.getElementById("op2").style.border = "none"
             document.getElementById("op3").style.border = "none"
           } }>Pas assez</button>
         <button id='op2' className="choice  p-5 bg-[#333333]
         text-[white]" style={ { borderRadius: "20px" } } onClick={ () => {
-            setpCond("assez"); btr.current.style.opacity = 1
+            setpCond("assez frequent"); btr.current.style.opacity = 1
             document.getElementById("op1").style.border = "none"
             document.getElementById("op2").style.border = "5px solid #4CAF50"
             document.getElementById("op3").style.border = "none"
           } }>Suffisamment</button>
         <button id='op3' className="choice  p-5 bg-[#333333]
         text-[white]" style={ { borderRadius: "20px" } } onClick={ () => {
-            setpCond("beaucoup"); btr.current.style.opacity = 1
+            setpCond("tres intense"); btr.current.style.opacity = 1
             document.getElementById("op1").style.border = "none"
             document.getElementById("op2").style.border = "none"
             document.getElementById("op3").style.border = "5px solid #4CAF50"

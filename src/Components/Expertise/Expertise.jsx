@@ -24,7 +24,7 @@ function Expertise({ setObjectif, setActive, current, btr , btl}) {
             <div className="choices flex flex-col justify-center align-middle gap-10 w-full">
                 <button id='ot1' className="choice  p-5 bg-[#333333]
         text-[white]" style={ { borderRadius: "20px" } } onClick={ (event) => {
-                        setObjectif("Prendre_Poids");
+                        setObjectif("PRISE_DE_POIDS");
                         btr.current.style.opacity = 1
                         document.getElementById("ot1").style.border = "5px solid #4CAF50"
                         document.getElementById("ot2").style.border = "none"
@@ -35,7 +35,7 @@ function Expertise({ setObjectif, setActive, current, btr , btl}) {
 
                 <button id='ot2' className="choice  p-5 bg-[#333333]
         text-[white]" style={ { borderRadius: "20px" } } onClick={ () => {
-                        setObjectif("Maintenir_Poids");
+                        setObjectif("MAINTIENT_DU_POIDS");
                         btr.current.style.opacity = 1
                         document.getElementById("ot1").style.border = "none"
                         document.getElementById("ot2").style.border = "5px solid #4CAF50"
@@ -47,7 +47,7 @@ function Expertise({ setObjectif, setActive, current, btr , btl}) {
 
                 <button id='ot3' className="choice   p-5 bg-[#333333]
         text-[white]" style={ { borderRadius: "20px" } } onClick={ () => {
-                        setObjectif("Perdre_Poids");
+                        setObjectif("PERTE_DE_POIDS");
                         btr.current.style.opacity = 1
                         document.getElementById("ot1").style.border = "none"
                         document.getElementById("ot2").style.border = "none"

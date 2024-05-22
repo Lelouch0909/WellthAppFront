@@ -1,7 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './SignUp.css'
 import { document } from 'postcss';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../../Store/Auth/Action';
 
 var Vnom = false;
 var Vprenom = false;
@@ -10,14 +12,15 @@ var Vmp = false;
 var Vmp2 = false
 
 function SignUp() {
+    const dispatch = useDispatch();
     const navigate = useNavigate()
-    let [nom, setNom] = useState()
-    let [prenom, setPrenom] = useState()
-    let [mail, setMail] = useState()
-    let [password, setPassword] = useState()
-    let [Cpassword, setCpassword] = useState()
-    let [pFile, setpFile] = useState()
-    let [pName, setpName] = useState()
+    let [nom, setNom] = useState("")
+    let [prenom, setPrenom] = useState("")
+    let [mail, setMail] = useState("")
+    let [password, setPassword] = useState("")
+    let [Cpassword, setCpassword] = useState("")
+    let [pFile, setpFile] = useState("")
+    let [pName, setpName] = useState("")
 
     let fileInput = useRef()
     let bgTof = useRef()
@@ -34,7 +37,12 @@ function SignUp() {
     let b_mailM = useRef()
 
     const [uploading, setUploading] = useState(false)
-
+    const { auth } = useSelector(store => store)
+    let [errorMess, setError] = useState("")
+    useEffect(() => {
+        setError(auth.error)
+        console.log(auth.error);
+    }, [auth.error])
 
 
     const handleImageChange = (event) => {
@@ -92,7 +100,7 @@ function SignUp() {
                             b_mp2M.current.innerText = 'Les mots de passe ne sont pas identiques'
                             Vmp2 = false
                         }
-                        else{
+                        else {
                             b_mp2M.current.innerText = ""
                             Vmp = true
                         }
@@ -108,7 +116,7 @@ function SignUp() {
                             Vmp2 = false
 
                         }
-                        else{
+                        else {
                             b_mp2M.current.innerText = ""
                             Vmp2 = true
                         }
@@ -128,16 +136,23 @@ function SignUp() {
                 </div>
                 <button type="button" className="bg-gradient-to-r from-[#4CAF50] to-[#3f8044] text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-green-600 hover:to-black transition ease-in-out duration-150"
                     onClick={ () => {
-                       
+
                         console.log();
                         if (Vnom == true &&
                             Vprenom == true &&
                             Vmail == true &&
                             Vmp == true && Vmp2 == true) {
-                            message.current.innerText = "Nice!";
 
-                            navigate("/home")
+                            dispatch(registerUser({
+                                nom: nom,
+                                prenom: prenom,
+                                email: mail,
+                                motDePasse: password
+                            }))
+                            setTimeout(() => {
+                                message.current.innerText = errorMess ;
 
+                            }, 1000);
                         } else {
                             message.current.innerText = "Svp veuillez remplir correctement les champs";
 

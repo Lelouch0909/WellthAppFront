@@ -18,24 +18,31 @@ const Bubbles = () => {
     </div>
   );
 };
-export function handleClicked(to, navigate) {
+export async function launchAnimate() {
   const bubbles = document.getElementById("bubbles");
 
   bubbles?.classList.add("show");
 
-  setTimeout(() => navigate(to), 1000);
+  // setTimeout(() => navigate(to), 1000);
 
-  setTimeout(() => {
-    bubbles?.classList.remove("show");
-    bubbles?.classList.add("hide");
-  }, 1200);
+  const timeout1 = new Promise<void>((resolve) => {
+    setTimeout(() => {
+      bubbles?.classList.remove("show");
+      bubbles?.classList.add("hide");
+      resolve();
+    }, 1200);
+  });
+  const timeout2 = new Promise<void>((resolve) => {
+    setTimeout(() => {
+      bubbles?.classList.remove("hide");
+      resolve();
+    }, 2400);
+  });
+  await timeout1;
 
-  setTimeout(() => bubbles?.classList.remove("hide"), 2400);
 }
 
 function Transition() {
- 
-
   return <Bubbles></Bubbles>;
 }
 
