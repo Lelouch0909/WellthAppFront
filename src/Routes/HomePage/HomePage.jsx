@@ -55,7 +55,7 @@ function HomePage() {
         <div className="avatar w-10 h-10 ml-2 object-cover">
           <img className='w-full h-full' srcSet={ user.photo ? user.photo : "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" } alt="" />
         </div>
-        <div className="nom text-xl text-[#3f8044]  "  >{ user.nom + " " + user.prenom }</div>
+        <div className="nom text-xl text-[#3f8044]  "  >{ user.nom + " " }</div>
         <div className="more w-10 h-10  object-cover" onClick={ () => {
           option.current.style.display = "block"
           modal.current.style.display = "block"
@@ -66,8 +66,7 @@ function HomePage() {
           option.current.style.display = "none"
           modal.current.style.display = "none"
         } }>
-/*******************************************************
-          *********************************************************** */
+
         </div>
         <div ref={ option } className="  m-1 py-1 absolute right-0 bottom-[-10rem] rounded-lg   z-10 bg-white hidden ">
           <div className="p-2 m-2 flex gap-1 justify-center align-middle">Supprimer regime     <img className="w-5 h-5" alt="" srcset={ trash } />
@@ -90,7 +89,6 @@ function HomePage() {
 
           await launchAnimate()
           navigate("/regime/create")
-          console.log(222222222);
 
 
         } } style={ { animation: "appear 0.25s 0.2s both" } }>Nouveau Regime</button>

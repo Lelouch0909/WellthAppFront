@@ -54,7 +54,7 @@ export const registerUser = (registerData) => async (dispatch) => {
 export const getUserProfile = (jwt) => async (dispatch) => {
   try {
     const { data } = await axios.get(
-      API_BASE_URL + "/api/utilisateurs/profile",
+      API_BASE_URL + "/api/utilisateurs/find/"+jwt,
       {
         headers: {
           Authorization: `${jwt}`,

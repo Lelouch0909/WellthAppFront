@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_BASE_URL = "http://localhost:8080/wellthapp/v1";
+export const API_BASE_URL = "http://localhost:8090/wellthapp/v1";
 
 
 export const api = axios.create({
